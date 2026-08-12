@@ -69,7 +69,7 @@ df_messages = memory_buffer.get_dataframe(color_rows_in_dataframe_func = color_r
 df_messages = st.data_editor( df_messages, disabled=["Message", "Confidence", "Emotion"], key="user_responce" )
 
 #st.bar_chart(df_messages.data["Emotion"].tolist())
-cnt_emotions = Counter(df_messages.data["Emotion"].tolist())
+cnt_emotions = Counter(st.session_state["user_responce"].data["Emotion"].tolist())
 cnt_emotions = data_for_histogram_counter(cnt_emotions)
 df_cnt_emotions = pd.DataFrame.from_dict(cnt_emotions, orient='index')
 df_cnt_emotions = df_cnt_emotions.rename({0 : 'count'}, axis='columns')
