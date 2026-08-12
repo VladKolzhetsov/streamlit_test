@@ -11,16 +11,49 @@ emotion2color = {
   "disgust": "green"
 }
 
+def patch_emotion_by_color(emotion):
+    return f":{emotion2color[emotion]}[{emotion}]"
+
+class Memory_buffer:
+    def __init__(self, *, defoult_size = 50):
+        self.buffer = list()
+        self.defoult_size = defoult_size
+      
+    def push(self, data, emotion, confidence):
+        self.buffer.append(data_confidence)
+        if len(self.buffer) > self.defoult_size:
+            self.buffer = self.buffer[:-1]
+
+    def get_dataframe(self):
+        if index is None or index < 0 or index >= self.defoult_size:
+            texts, emotions, confidences = zip(*self.buffer)
+            df = pd.Dataframe(
+                "Message" : texts,
+                "Emotion" : map(patch_emotion_by_color)emotions,
+                "Confidence" : confidences
+            )
+
+            df = df.style.apply(color_rows_in_dataframe, axis=1)
+            return df
+
+    @staticmetod
+    def color_rows_in_dataframe(df):
+        return [f'background-color: {emotion2color[row.Emotion]}' for row in df.itertuples()]
+        
+
+memory_buffer = Memory_buffer()
+
 pipe = pipeline("text-classification", model="VK26/disilbert-finetuned-emotion2")
 
 st.header("Message")
-user_input = st.text_area("label goes here", "")
+user_input = st.text_area("message goes here", "", max_chars=250)
 
 st.header("Responce")
 responce = pipe(user_input)[0]
 emotion, prob = responce.values()
 #st.badge(f"{emotion} with {round(prob, 3) * 100} % confidence", color = emotion2color[emotion])
+st.markdown( f":violet-badge[ {emotion} ] with :violet-badge[ {round(prob, 3) * 100}% ] confidence." )
+memory_buffer.push( user_input, emotion, prob )
 
-st.markdown(
-    f":violet-badge[ {emotion} ] with :violet-badge[ {round(prob, 3) * 100}% ] confidence."
-)
+df_messages = get_data_for_messages
+st.table( df_messages )
