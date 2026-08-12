@@ -30,7 +30,7 @@ class Memory_buffer:
         texts, emotions, confidences = zip(*st.session_state.buffer)
         
         df = pd.DataFrame({
-            "id" : df.index.tolist()
+            "id" : df.index.tolist(),
             "Message" : texts,
             "Confidence" : confidences,
             "Emotion" : emotions,
