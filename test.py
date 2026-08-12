@@ -12,8 +12,8 @@ emotion2color = {
   "disgust": "green"
 }
 
-def color_rows_in_dataframe(df):
-    return [f'background-color: {emotion2color[row["Emotion"]]}' for _, row in df.iterrows()]
+def color_rows_in_dataframe(row):
+    return [ f'background-color: {emotion2color[row["Emotion"]]}' ]
 
 class Memory_buffer:
     def __init__(self, *, defoult_size = 50):
