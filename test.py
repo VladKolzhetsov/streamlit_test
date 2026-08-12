@@ -69,6 +69,15 @@ df_messages = memory_buffer.get_dataframe(color_rows_in_dataframe_func = color_r
 st.data_editor( df_messages, disabled=["Message", "Confidence", "Emotion"], key="user_responce" )
 
 
+if st.button("Save All Changes"):
+    changes = st.session_state["user_responce"]
+  
+    for row_index, updates in changes.get("edited_rows", {}).items():
+        row_idx = int(row_index)
+        for col_name, new_value in updates.items():
+            st.session_state.buffer[row_idx].append(new_value)
+
+
 cnt_emotions = Counter(df_messages.data["Emotion"].tolist())
 cnt_emotions = data_for_histogram_counter(cnt_emotions)
 df_cnt_emotions = pd.DataFrame.from_dict(cnt_emotions, orient='index')
