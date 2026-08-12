@@ -24,17 +24,17 @@ class Memory_buffer:
         if len(self.buffer) > self.defoult_size:
             self.buffer = self.buffer[:-1]
 
-    def get_dataframe(self):
-        if index is None or index < 0 or index >= self.defoult_size:
-            texts, emotions, confidences = zip(*self.buffer)
-            df = pd.Dataframe({
-                "Message" : texts,
-                "Emotion" : emotions,
-                "Confidence" : confidences
-            })
-
-            df = df.style.apply(color_rows_in_dataframe, axis=1)
+    def get_dataframe(self, color_rows_in_dataframe_func = None):
+        texts, emotions, confidences = zip(*self.buffer)
+        df = pd.Dataframe({
+            "Message" : texts,
+            "Emotion" : emotions,
+            "Confidence" : confidences
+         })
+      
+        if color_dataframe_func is None:
             return df
+        return df.style.apply(color_rows_in_dataframe_func, axis=1)
     
         
 
@@ -52,5 +52,5 @@ emotion, prob = responce.values()
 st.markdown( f":violet-badge[ {emotion} ] with :violet-badge[ {round(prob, 3) * 100}% ] confidence." )
 memory_buffer.push( user_input, emotion, prob )
 
-df_messages = memory_buffer.get_dataframe()
+df_messages = memory_buffer.get_dataframe(color_roes_in_dataframe_func = color_rows_in_dataframe)
 st.table( df_messages )
