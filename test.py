@@ -33,7 +33,7 @@ class Memory_buffer:
             "Confidence" : confidences
          })
       
-        if color_dataframe_func is None:
+        if color_rows_in_dataframe_func is None:
             return df
         return df.style.apply(color_rows_in_dataframe_func, axis=1)
     
