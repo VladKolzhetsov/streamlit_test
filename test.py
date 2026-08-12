@@ -77,5 +77,6 @@ df_cnt_emotions.reset_index(inplace=True)
 df_cnt_emotions = df_cnt_emotions.rename(columns = {'index' : 'emotions'})
 st.write(df_cnt_emotions)
 
-histogram = alt.Chart(df_cnt_emotions).mark_bar()
+histogram = alt.Chart(df_cnt_emotions).mark_bar().encode(x = 'emotions', y = 'count')
+histogram = histogram.properties(width=alt.Step(80))
 st.write(histogram)
