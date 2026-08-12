@@ -11,8 +11,8 @@ emotion2color = {
   "disgust": "green"
 }
 
-def patch_emotion_by_color(emotion):
-    return f":{emotion2color[emotion]}[{emotion}]"
+def color_rows_in_dataframe(df):
+    return [f'background-color: {emotion2color[row.Emotion]}' for row in df.itertuples()]
 
 class Memory_buffer:
     def __init__(self, *, defoult_size = 50):
@@ -35,10 +35,7 @@ class Memory_buffer:
 
             df = df.style.apply(color_rows_in_dataframe, axis=1)
             return df
-
-    @staticmetod
-    def color_rows_in_dataframe(df):
-        return [f'background-color: {emotion2color[row.Emotion]}' for row in df.itertuples()]
+    
         
 
 memory_buffer = Memory_buffer()
