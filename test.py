@@ -27,7 +27,7 @@ class Memory_buffer:
 
     def get_dataframe(self, color_rows_in_dataframe_func = None):
         texts, emotions, confidences = zip(*self.buffer)
-        df = pd.Dataframe({
+        df = pd.DataFrame({
             "Message" : texts,
             "Emotion" : emotions,
             "Confidence" : confidences
