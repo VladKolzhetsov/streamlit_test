@@ -20,7 +20,7 @@ class Memory_buffer:
         self.defoult_size = defoult_size
       
     def push(self, data, emotion, confidence):
-        self.buffer.append(data_confidence)
+        self.buffer.append( (data, emotion, confidence) )
         if len(self.buffer) > self.defoult_size:
             self.buffer = self.buffer[:-1]
 
