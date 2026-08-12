@@ -27,11 +27,11 @@ class Memory_buffer:
     def get_dataframe(self):
         if index is None or index < 0 or index >= self.defoult_size:
             texts, emotions, confidences = zip(*self.buffer)
-            df = pd.Dataframe(
+            df = pd.Dataframe({
                 "Message" : texts,
                 "Emotion" : map(patch_emotion_by_color)emotions,
                 "Confidence" : confidences
-            )
+            })
 
             df = df.style.apply(color_rows_in_dataframe, axis=1)
             return df
