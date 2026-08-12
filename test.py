@@ -66,7 +66,7 @@ st.markdown( f":{emotion2color[emotion]}-badge[ {emotion} ] with :{emotion2color
 memory_buffer.push( user_input, emotion, prob )
 
 df_messages = memory_buffer.get_dataframe(color_rows_in_dataframe_func = color_rows_in_dataframe)
-st.data_editor( df_messages, disabled=["Message", "Confidence", "Emotion"] )
+df_messages = st.data_editor( df_messages, disabled=["Message", "Confidence", "Emotion"], key="user_responce" )
 
 #st.bar_chart(df_messages.data["Emotion"].tolist())
 cnt_emotions = Counter(df_messages.data["Emotion"].tolist())
