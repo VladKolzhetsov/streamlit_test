@@ -17,7 +17,8 @@ def color_rows_in_dataframe(row):
 
 class Memory_buffer:
     def __init__(self, *, defoult_size = 50):
-        self.buffer = list()
+        if "buffer" not in st.session_state:
+            self.buffer = st.session_state.buffer = list()
         self.defoult_size = defoult_size
       
     def push(self, data, emotion, confidence):
