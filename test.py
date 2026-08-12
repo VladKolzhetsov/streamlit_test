@@ -52,5 +52,5 @@ emotion, prob = responce.values()
 st.markdown( f":violet-badge[ {emotion} ] with :violet-badge[ {round(prob, 3) * 100}% ] confidence." )
 memory_buffer.push( user_input, emotion, prob )
 
-df_messages = memory_buffer.get_dataframe(color_roes_in_dataframe_func = color_rows_in_dataframe)
+df_messages = memory_buffer.get_dataframe(color_rows_in_dataframe_func = color_rows_in_dataframe)
 st.table( df_messages )
