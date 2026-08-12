@@ -1,5 +1,6 @@
 import streamlit as st
 from transformers import pipeline
+import pandas as pd
 
 emotion2color = {
   "sadness" : "blue",
