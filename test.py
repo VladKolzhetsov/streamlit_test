@@ -19,4 +19,8 @@ user_input = st.text_area("label goes here", "")
 st.header("Responce")
 responce = pipe(user_input)[0]
 emotion, prob = responce.values()
-st.badge(f"{emotion} with {round(prob, 3) * 100} % confidence", color = emotion2color[emotion])
+#st.badge(f"{emotion} with {round(prob, 3) * 100} % confidence", color = emotion2color[emotion])
+
+st.markdown(
+    f":violet-badge[ {emotion} ] with :violet-badge[ {round(prob, 3) * 100}% ] confidence."
+)
