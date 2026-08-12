@@ -1,6 +1,7 @@
 import streamlit as st
 from transformers import pipeline
 import pandas as pd
+import altair as alt
 
 emotion2color = {
   "sadness" : "blue",
@@ -59,5 +60,6 @@ memory_buffer.push( user_input, emotion, prob )
 df_messages = memory_buffer.get_dataframe(color_rows_in_dataframe_func = color_rows_in_dataframe)
 st.data_editor( df_messages, disabled=["Message", "Confidence", "Emotion"] )
 
-st.bar_chart(df_messages.data["Emotion"].tolist())
-st.write(df_messages.data["Emotion"].tolist())
+#st.bar_chart(df_messages.data["Emotion"].tolist())
+histogram = alt.Chart(df_messages.data["Emotion"].tolist()).mark_bar()
+st.write(histogram)
