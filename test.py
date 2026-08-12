@@ -29,7 +29,7 @@ class Memory_buffer:
             texts, emotions, confidences = zip(*self.buffer)
             df = pd.Dataframe({
                 "Message" : texts,
-                "Emotion" : map(patch_emotion_by_color)emotions,
+                "Emotion" : emotions,
                 "Confidence" : confidences
             })
 
