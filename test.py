@@ -63,6 +63,7 @@ st.data_editor( df_messages, disabled=["Message", "Confidence", "Emotion"] )
 
 #st.bar_chart(df_messages.data["Emotion"].tolist())
 cnt_emotions = Counter(df_messages.data["Emotion"].tolist())
+st.write(cnt_emotions)
 df_cnt_emotions = pd.DataFrame(cnt_emotions)
 st.write(df_cnt_emotions)
 histogram = alt.Chart(df_cnt_emotions).mark_bar()
