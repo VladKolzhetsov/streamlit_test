@@ -16,18 +16,18 @@ def color_rows_in_dataframe(row):
     return [ f'background-color: {emotion2color[row["Emotion"]]}' ] * len(row)
 
 class Memory_buffer:
-    def __init__(self, *, defoult_size = 50):
+    def __init__(self, *, default_size = 50):
         if "buffer" not in st.session_state:
-            self.buffer = st.session_state.buffer = list()
-        self.defoult_size = defoult_size
+            st.session_state.buffer = list()
+        self.default_size = default_size
       
     def push(self, data, emotion, confidence):
-        self.buffer.append( (data, emotion, confidence) )
-        if len(self.buffer) > self.defoult_size:
-            self.buffer = self.buffer[:-1]
+        st.session_state.buffer.append( (data, emotion, confidence) )
+        if len(st.session_state.buffer) > self.default_size:
+            st.session_state.buffer = st.session_state.buffer[:-1]
 
     def get_dataframe(self, color_rows_in_dataframe_func = None):
-        texts, emotions, confidences = zip(*self.buffer)
+        texts, emotions, confidences = zip(*st.session_state.buffer)
         df = pd.DataFrame({
             "Message" : texts,
             "Emotion" : emotions,
@@ -56,4 +56,3 @@ memory_buffer.push( user_input, emotion, prob )
 
 df_messages = memory_buffer.get_dataframe(color_rows_in_dataframe_func = color_rows_in_dataframe)
 st.table( df_messages )
-st.write(memory_buffer.buffer)
