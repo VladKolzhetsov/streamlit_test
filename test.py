@@ -68,14 +68,12 @@ memory_buffer.push( user_input, emotion, prob )
 df_messages = memory_buffer.get_dataframe(color_rows_in_dataframe_func = color_rows_in_dataframe)
 df_messages = st.data_editor( df_messages, disabled=["Message", "Confidence", "Emotion"], key="user_responce" )
 
-#st.bar_chart(df_messages.data["Emotion"].tolist())
-cnt_emotions = Counter(st.session_state["user_responce"].data["Emotion"].tolist())
+
+cnt_emotions = Counter(df_messagess.data["Emotion"].tolist())
 cnt_emotions = data_for_histogram_counter(cnt_emotions)
 df_cnt_emotions = pd.DataFrame.from_dict(cnt_emotions, orient='index')
 df_cnt_emotions = df_cnt_emotions.rename({0 : 'count'}, axis='columns')
 df_cnt_emotions.reset_index(inplace=True)
 df_cnt_emotions = df_cnt_emotions.rename(columns = {'index' : 'emotions'})
-
 histogram = alt.Chart(df_cnt_emotions).mark_bar().encode(x = 'emotions', y = 'count')
-#histogram = histogram.properties(width=alt.Step(80))
 st.write(histogram)
