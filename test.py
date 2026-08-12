@@ -60,4 +60,4 @@ df_messages = memory_buffer.get_dataframe(color_rows_in_dataframe_func = color_r
 st.data_editor( df_messages, disabled=["Message", "Confidence", "Emotion"] )
 
 st.bar_chart(df_messages.data["Emotion"])
-st.write(f_messages.data["Emotion"])
+st.write(df_messages.data["Emotion"])
