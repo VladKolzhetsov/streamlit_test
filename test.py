@@ -17,6 +17,13 @@ emotion2color = {
 def color_rows_in_dataframe(row):
     return [ f'background-color: {emotion2color[row["Emotion"]]}' ] * len(row)
 
+def data_for_histogram_counter(counter):
+    _dict = {"sadness" : 0, "joy" : 0, "neutral": 0, "anger": 0,
+             "fear": 0, "surprise": 0, "disgust": 0}
+    for key, value in counter.items():
+        _dict[key] += value
+    return _dict
+
 class Memory_buffer:
     def __init__(self, *, default_size = 50):
         if "buffer" not in st.session_state:
@@ -63,6 +70,7 @@ st.data_editor( df_messages, disabled=["Message", "Confidence", "Emotion"] )
 
 #st.bar_chart(df_messages.data["Emotion"].tolist())
 cnt_emotions = Counter(df_messages.data["Emotion"].tolist())
+cnt_emotions = data_for_histogram_counter(cnt_emotions)
 st.write(cnt_emotions)
 df_cnt_emotions = pd.DataFrame(cnt_emotions)
 st.write(df_cnt_emotions)
