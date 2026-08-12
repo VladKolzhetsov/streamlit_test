@@ -30,7 +30,6 @@ class Memory_buffer:
         texts, emotions, confidences = zip(*st.session_state.buffer)
         
         df = pd.DataFrame({
-            "id" : [index for index, _ in enumerate(confidences)],
             "Message" : texts,
             "Confidence" : confidences,
             "Emotion" : emotions,
@@ -58,4 +57,4 @@ st.markdown( f":{emotion2color[emotion]}-badge[ {emotion} ] with :{emotion2color
 memory_buffer.push( user_input, emotion, prob )
 
 df_messages = memory_buffer.get_dataframe(color_rows_in_dataframe_func = color_rows_in_dataframe)
-st.data_editor( df_messages, disabled=["id", "Message", "Confidence" "Emotion"] )
+st.data_editor( df_messages, disabled=["Message", "Confidence" "Emotion"] )
