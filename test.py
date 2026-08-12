@@ -13,7 +13,7 @@ emotion2color = {
 }
 
 def color_rows_in_dataframe(row):
-    return [ f'background-color: {emotion2color[row["Emotion"]]}' ]
+    return [ f'background-color: {emotion2color[row["Emotion"]]}' ] * len(row)
 
 class Memory_buffer:
     def __init__(self, *, defoult_size = 50):
