@@ -30,11 +30,11 @@ class Memory_buffer:
         texts, emotions, confidences = zip(*st.session_state.buffer)
         
         df = pd.DataFrame({
-            "id" : df.index.tolist(),
+            "id" : [index for index, _ in enumerate(confidences)],
             "Message" : texts,
             "Confidence" : confidences,
             "Emotion" : emotions,
-            "Your advice" : [""] * len(texts)
+            "Your advice" : [""] * len(confidences)
          })
       
         if color_rows_in_dataframe_func is None:
