@@ -1,6 +1,7 @@
 import streamlit as st
 from transformers import pipeline
 import pandas as pd
+from collections import Counter
 import altair as alt
 
 emotion2color = {
@@ -61,5 +62,7 @@ df_messages = memory_buffer.get_dataframe(color_rows_in_dataframe_func = color_r
 st.data_editor( df_messages, disabled=["Message", "Confidence", "Emotion"] )
 
 #st.bar_chart(df_messages.data["Emotion"].tolist())
-histogram = alt.Chart(df_messages.data["Emotion"].tolist()).mark_bar()
+cnt_emotions = Counter(df_messages.data["Emotion"].tolist())
+df_cnt_emotions = pd.DataFrame(cnt_emotions)
+histogram = alt.Chart(df_cnt_emotions).mark_bar()
 st.write(histogram)
