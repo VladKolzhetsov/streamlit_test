@@ -55,3 +55,4 @@ memory_buffer.push( user_input, emotion, prob )
 
 df_messages = memory_buffer.get_dataframe(color_rows_in_dataframe_func = color_rows_in_dataframe)
 st.table( df_messages )
+st.write(memory_buffer.buffer)
