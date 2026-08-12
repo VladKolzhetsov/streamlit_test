@@ -4,11 +4,11 @@ import pandas as pd
 
 emotion2color = {
   "sadness" : "blue",
-  "joy" : "yellow",
+  "joy" : "orange",
   "neutral": "gray",
   "anger": "red",
   "fear": "violet",
-  "surprise": "orange",
+  "surprise": "black",
   "disgust": "green"
 }
 
@@ -45,7 +45,7 @@ memory_buffer = Memory_buffer()
 pipe = pipeline("text-classification", model="VK26/disilbert-finetuned-emotion2")
 
 st.header("Message")
-user_input = st.text_area("message goes here", "", max_chars=250)
+user_input = st.text_area("message goes here", "Nothing", max_chars=250)
 
 st.header("Responce")
 responce = pipe(user_input)[0]
