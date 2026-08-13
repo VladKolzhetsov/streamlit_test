@@ -36,8 +36,11 @@ class Memory_buffer:
     def __init__(self, *, default_size = 50):
         if "buffer" not in st.session_state:
             st.session_state.buffer = list()
+          
         self.default_size = default_size
-        st.session_state.user_advices = list()
+      
+        if "user_advices" not in st.session_state:
+            st.session_state.user_advices = list()
       
     def push(self, data, emotion, confidence):
         st.session_state.buffer.append( (data, emotion, confidence) )
