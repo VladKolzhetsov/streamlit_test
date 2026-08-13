@@ -149,7 +149,7 @@ def seaborn_pairplot(cnt_emo, cnt_adv_emo):
 
 def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
     st.title("Confusion matrix")
-    lables = emotion2color.keys()
+    lables = list( emotion2color.keys() )
     cm = confusion_matrix(cnt_emo, cnt_adv_emo,labels=lables )
     disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=lables)
     st.pyplot(disp)
