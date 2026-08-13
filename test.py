@@ -64,7 +64,7 @@ def submit():
 st.text_area("message goes here", "", max_chars=250, placeholder="Nothing", key="message", on_change=submit)
 #user_input = st.session_state.user_input
 
-if user_input:
+if st.session_state.user_input:
     st.header("Responce")
     responce = pipe(st.session_state.user_input)[0]
     emotion, prob = responce.values()
