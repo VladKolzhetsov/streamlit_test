@@ -116,18 +116,17 @@ else:
                    key="user_responce",
                    num_rows="fixed" )
 
+df_messages.data.loc[df_messages.data["Your advice"] == '', 'Your advice'] = df_messages.data["Emotion"]
+cnt_emo = df_messages.data["Emotion"].tolist()
+cnt_adv_emo = df_messages.data["Your advice"].tolist()
 
 def commit_changes():
     memory_buffer.update()
     
-
-def seaborn_pairplot():
+def seaborn_pairplot(cnt_emo, cnt_adv_emo):
     st.title("Seaborn Pairplot")
-    df_messages.data.loc[df_messages.data["Your advice"] == '', 'Your advice'] = df_messages.data["Emotion"]
-    cnt_emotions = Counter(df_messages.data["Emotion"].tolist())
-    cnt_emotions = data_for_histogram_counter(cnt_emotions)
-    cnt_adv_emotions = Counter(df_messages.data["Your advice"].tolist())
-    cnt_adv_emotions = data_for_histogram_counter(cnt_adv_emotions)
+    cnt_emotions = data_for_histogram_counter( Counter(cnt_emo) )
+    cnt_adv_emotions = data_for_histogram_counter( Counter(cnt_adv_emo) )
 
     df = pd.DataFrame({
         'Word': cnt_emotions.keys(),
@@ -147,8 +146,25 @@ def seaborn_pairplot():
     plt.tight_layout()
     st.pyplot(fig)
 
+def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
+    cm = confusion_matrix(cnt_adv_emo, cnt_emo)
+    plt.figure(figsize=(8, 6))
+
+    sns.heatmap(
+        cm,
+        annot=True,
+        fmt="d",
+        cmap="Blues", 
+        xticklabels=emotion2color.keys(),
+        yticklabels=emotion2color.keys(),
+    )
+
+    plt.title("Confusion Matrix", fontsize=16, pad=20)
+    plt.ylabel("Guided emotion", fontsize=12)
+    plt.xlabel("Predicted emotion", fontsize=12)
+
+    plt.tight_layout()
+
 if st.button("Commit changes", on_click=commit_changes):
-    seaborn_pairplot()
-
-
-st.write(st.session_state["user_responce"])
+    seaborn_pairplot(cnt_emo, cnt_adv_emo)
+    confusion_matrix_plot(cnt_emo, cnt_adv_emo)
