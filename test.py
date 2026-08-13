@@ -17,7 +17,7 @@ emotion2color = {
 column_config={
         "Your advice": st.column_config.SelectboxColumn(
             "Possible options",
-            options=map(lambda emo : emo + " ✅", emotion2color.keys() ),
+            options=emotion2color.keys(),
             required=True,
         )
     }
@@ -52,7 +52,7 @@ class Memory_buffer:
             "Message" : texts,
             "Confidence" : confidences,
             "Emotion" : emotions,
-            "Your advice" : emotions
+            "Your advice" : [""] * len(confidences)
          })
       
         if color_rows_in_dataframe_func is None:
