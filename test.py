@@ -163,8 +163,8 @@ def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
         yticklabels=labels[::-1],
     )
 
-    plt.set_xlabel("Predicted emotions", fontsize=12, labelpad=10)
-    plt.ylabel("Guided emotions", fontsize=12, labelpad=10)
+    ax.set_xlabel("Predicted emotions", fontsize=12, labelpad=10)
+    ax.set_ylabel("Guided emotions", fontsize=12, labelpad=10)
     plt.tight_layout()
     st.pyplot(fig)
 
