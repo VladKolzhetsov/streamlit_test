@@ -81,7 +81,6 @@ def submit():
     st.session_state.user_input = st.session_state.message
     st.session_state.message = ""
 st.text_area("message goes here", "", max_chars=250, placeholder="Nothing", key="message", on_change=submit)
-#user_input = st.session_state.user_input
 
 
 st.header("Responce")
@@ -89,6 +88,7 @@ responce = pipe(st.session_state.user_input)[0]
 emotion, prob = responce.values()
 st.markdown( f":{emotion2color[emotion]}-badge[ {emotion} ] with :{emotion2color[emotion]}-badge[ {round(prob * 100, 3)}% ] confidence." )
 if st.session_state.user_input:
+    st.write(st.session_state.user_advice)
     memory_buffer.update()
     memory_buffer.push( st.session_state.user_input, emotion, prob )
 st.session_state.user_input = ""
