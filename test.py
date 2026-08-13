@@ -151,11 +151,21 @@ def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
     st.title("Confusion matrix")
     lables = list( emotion2color.keys() )
     cm = confusion_matrix(cnt_emo, cnt_adv_emo,labels=lables )
-
-    fig, ax = plt.subplots()
-    dis = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=lables)
     st.write(cm)
-    dis.plot()
+    fig, ax = plt.subplots(figsize=(10, 6))plt.subplots()
+    plt.figure(figsize=(6, 5))
+    sns.heatmap(
+        cm,
+        annot=True,
+        fmt="d",
+        cmap="Blues",
+        xticklabels=labels,
+        yticklabels=labels[::-1],
+    )
+
+    plt.set_xlabel("Predicted emotions", fontsize=12, labelpad=10)
+    plt.ylabel("Guided emotions", fontsize=12, labelpad=10)
+    plt.tight_layout()
     st.pyplot(fig)
 
 if st.button("Commit changes", on_click=commit_changes):
