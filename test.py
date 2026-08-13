@@ -61,7 +61,6 @@ class Memory_buffer:
             "Your advice" : st.session_state.user_advices
          })
 
-        st.write(st.session_state.user_advices)
         if color_rows_in_dataframe_func is None:
             return df
         return df.style.apply(color_rows_in_dataframe_func, axis=1)
@@ -118,6 +117,10 @@ df_cnt_emotions = pd.DataFrame.from_dict(cnt_emotions, orient='index')
 df_cnt_emotions = df_cnt_emotions.rename({0 : 'count'}, axis='columns')
 df_cnt_emotions.reset_index(inplace=True)
 df_cnt_emotions = df_cnt_emotions.rename(columns = {'index' : 'emotions'})
+
+cnt_advices = Counter(df_messages.data.mask(df_messages.data['Your advice'] == "", df_messages.data["Emotion"]).tolist()) 
+st.write(cnt_advices)
+
 histogram = alt.Chart(df_cnt_emotions).mark_bar().encode(x = 'emotions', y = 'count')
 st.write(histogram)
 
