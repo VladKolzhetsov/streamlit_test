@@ -141,7 +141,7 @@ def seaborn_pairplot(cnt_emo, cnt_adv_emo):
 
     ax.set_xlabel('Emotions')
     ax.set_ylabel('Count')
-    ax.set_title('Word Frequencies in Two Documents (Side by Side)')
+    ax.set_title('Emotion Frequencies')
     ax.legend()
     plt.xticks(rotation=45)
     plt.tight_layout()
@@ -149,7 +149,7 @@ def seaborn_pairplot(cnt_emo, cnt_adv_emo):
 
 def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
     cm = confusion_matrix(cnt_adv_emo, cnt_emo)
-    plt.figure(figsize=(8, 6))
+    fig, ax = plt.subplots(figsize=(10, 6))
 
     sns.heatmap(
         cm,
@@ -161,10 +161,11 @@ def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
     )
 
     plt.title("Confusion Matrix", fontsize=16, pad=20)
-    plt.ylabel("Guided emotion", fontsize=12)
-    plt.xlabel("Predicted emotion", fontsize=12)
+    ax.set_xlabel("Guided emotion", fontsize=12)
+    ax.set_ylabel("Predicted emotion", fontsize=12)
 
     plt.tight_layout()
+    st.pyplot(fig)
 
 if st.button("Commit changes", on_click=commit_changes):
     seaborn_pairplot(cnt_emo, cnt_adv_emo)
