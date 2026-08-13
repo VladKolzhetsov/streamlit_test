@@ -49,14 +49,20 @@ class Memory_buffer:
             return df
         return df.style.apply(color_rows_in_dataframe_func, axis=1)
     
-        
+
+if "my_text" not in st.session_state:
+    st.session_state.my_text = ""
+
+def submit():
+    st.session_state.my_text = st.session_state.widget
+    st.session_state.widget = ""
 
 memory_buffer = Memory_buffer()
 
 pipe = pipeline("text-classification", model="VK26/disilbert-finetuned-emotion2")
 
 st.header("Message")
-user_input = st.text_area("message goes here", "", max_chars=250, placeholder="Nothing")
+user_input = st.text_area("message goes here", "", max_chars=250, placeholder="Nothing", on_change=submit)
 
 if user_input:
     st.header("Responce")
