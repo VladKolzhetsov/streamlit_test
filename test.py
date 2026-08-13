@@ -117,35 +117,39 @@ else:
                    num_rows="fixed" )
 
 
-def commit_changes():
+def commit_changes(df_messages):
     memory_buffer.update()
+    seaborn_pairplot(df_messages)
 
-st.button("Commit changes", on_click=commit_changes)
+def seaborn_pairplot(df_messages):
+    st.title("Seaborn Pairplot")
+    df_messages.data.loc[df_messages.data["Your advice"] == '', 'Your advice'] = df_messages.data["Emotion"]
+    cnt_emotions = Counter(df_messages.data["Emotion"].tolist())
+    cnt_emotions = data_for_histogram_counter(cnt_emotions)
+    cnt_adv_emotions = Counter(df_messages.data["Your advice"].tolist())
+    cnt_adv_emotions = data_for_histogram_counter(cnt_adv_emotions)
+
+    df = pd.DataFrame({
+        'Word': cnt_emotions.keys(),
+        'Doc1': cnt_emotions.values(),
+        'Doc2': cnt_adv_emotions.values()
+    })
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.barplot(x='Word', y='Doc1', data=df, ax=ax, label='Predicted', color='blue', alpha=0.5)
+    sns.barplot(x='Word', y='Doc2', data=df, ax=ax, label='Guided', color='red', dodge=True, alpha=0.5)
+
+    ax.set_xlabel('Emotions')
+    ax.set_ylabel('Count')
+    ax.set_title('Word Frequencies in Two Documents (Side by Side)')
+    ax.legend()
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    st.pyplot(fig)
+
+st.button("Commit changes", on_click=commit_changes, args=(df_messages))
     
 
-st.title("Seaborn Pairplot")
-df_messages.data.loc[df_messages.data["Your advice"] == '', 'Your advice'] = df_messages.data["Emotion"]
-cnt_emotions = Counter(df_messages.data["Emotion"].tolist())
-cnt_emotions = data_for_histogram_counter(cnt_emotions)
-cnt_adv_emotions = Counter(df_messages.data["Your advice"].tolist())
-cnt_adv_emotions = data_for_histogram_counter(cnt_adv_emotions)
 
-df = pd.DataFrame({
-    'Word': cnt_emotions.keys(),
-    'Doc1': cnt_emotions.values(),
-    'Doc2': cnt_adv_emotions.values()
-})
-
-fig, ax = plt.subplots(figsize=(10, 6))
-sns.barplot(x='Word', y='Doc1', data=df, ax=ax, label='Predicted', color='blue', alpha=0.5)
-sns.barplot(x='Word', y='Doc2', data=df, ax=ax, label='Guided', color='red', dodge=True, alpha=0.5)
-
-ax.set_xlabel('Emotions')
-ax.set_ylabel('Count')
-ax.set_title('Word Frequencies in Two Documents (Side by Side)')
-ax.legend()
-plt.xticks(rotation=45)
-plt.tight_layout()
-st.pyplot(fig)
 
 st.write(st.session_state["user_responce"])
