@@ -14,6 +14,14 @@ emotion2color = {
   "disgust": "green"
 }
 
+column_config={
+        "Tags": st.column_config.MultiselectColumn(
+            "Select Tags",
+            options=["python", "ui", "backend", "database"],
+            help="Choose multiple tags",
+        )
+    }
+
 def color_rows_in_dataframe(row):
     return [ f'background-color: {emotion2color[row["Emotion"]]}' ] * len(row)
 
@@ -76,7 +84,7 @@ st.session_state.user_input = ""
 df_messages = memory_buffer.get_dataframe(color_rows_in_dataframe_func = color_rows_in_dataframe)
 if "user_advice" not in st.session_state:
     st.session_state.user_advice = list()
-st.data_editor( df_messages, disabled=["Message", "Confidence", "Emotion"], key="user_responce", num_rows="fixed" )
+st.data_editor( df_messages, disabled=["Message", "Confidence", "Emotion"], key="user_responce", num_rows="fixed", column_config=column_config )
 st.session_state.user_advice = st.session_state["user_responce"]["edited_rows"]
 st.write(st.session_state.user_advice)
 
