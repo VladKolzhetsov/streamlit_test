@@ -48,12 +48,14 @@ class Memory_buffer:
         texts, emotions, confidences = list(), list(), list()
         if st.session_state.buffer:
             texts, emotions, confidences = zip(*st.session_state.buffer)
-        
+          
+        self.user_advices += [""] * (len(confidences) - len(self.user_advices)) 
+      
         df = pd.DataFrame({
             "Message" : texts,
             "Confidence" : confidences,
             "Emotion" : emotions,
-            "Your advice" : self.user_advices + [""] * (len(confidences) - len(self.user_advices)) 
+            "Your advice" : self.user_advices
          })
       
         if color_rows_in_dataframe_func is None:
