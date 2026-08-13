@@ -4,6 +4,7 @@ import pandas as pd
 from collections import Counter
 import altair as alt
 import seaborn as sns
+import matplotlib.pyplot as plt
 
 emotion2color = {
   "sadness" : "blue",
