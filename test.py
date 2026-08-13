@@ -75,7 +75,7 @@ if user_input:
     if "user_advice" not in st.session_state:
         st.session_state.user_advice = list()
     st.data_editor( df_messages, disabled=["Message", "Confidence", "Emotion"], key="user_responce", num_rows="fixed" )
-    st.session_state.user_advice = st.data_editor["user_responce"]["edited_rows"]
+    st.session_state.user_advice = st.session_state["user_responce"]["edited_rows"]
     st.write(st.session_state.user_advice)
 
 
