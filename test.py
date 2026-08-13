@@ -120,7 +120,7 @@ else:
 def commit_changes():
     memory_buffer.update()
 
-st.button("Commit changes", on_click=commit_changes):
+st.button("Commit changes", on_click=commit_changes)
     
 
 st.title("Seaborn Pairplot")
