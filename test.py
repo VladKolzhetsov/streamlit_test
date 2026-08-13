@@ -123,7 +123,8 @@ cnt_adv_emo = df_messages.data["Your advice"].tolist()
 
 def commit_changes():
     memory_buffer.update()
-    
+
+@st.cache_data
 def seaborn_pairplot(cnt_emo, cnt_adv_emo):
     st.title("Seaborn Pairplot")
     cnt_emotions = data_for_histogram_counter( Counter(cnt_emo) )
@@ -147,6 +148,7 @@ def seaborn_pairplot(cnt_emo, cnt_adv_emo):
     plt.tight_layout()
     st.pyplot(fig)
 
+@st.cache_data
 def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
     st.title("Confusion matrix")
     labels = list( emotion2color.keys() )
