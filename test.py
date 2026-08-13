@@ -90,7 +90,7 @@ if "user_input" not in st.session_state:
 def submit():
     st.session_state.user_input = st.session_state.message
     st.session_state.message = ""
-st.text_area("message goes here", "", max_chars=250, placeholder="Nothing", key="message", on_change=submit)
+st.text_area("", "", max_chars=250, placeholder="text goes here", key="message", on_change=submit)
 
 
 st.header("Responce")
@@ -152,7 +152,9 @@ def seaborn_pairplot(cnt_emo, cnt_adv_emo):
 def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
     st.title("Confusion matrix")
     labels = list( emotion2color.keys() )
-    cm = confusion_matrix(cnt_emo, cnt_adv_emo,labels=labels )
+    cm = np.zeros((len(labels), len(labels)))
+    if cnt_emo and cnt_adv_emo:
+        cm = confusion_matrix(cnt_emo, cnt_adv_emo,labels=labels )
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.heatmap(
         cm,
