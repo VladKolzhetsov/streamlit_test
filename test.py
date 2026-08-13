@@ -44,7 +44,9 @@ class Memory_buffer:
             st.session_state.buffer = st.session_state.buffer[:-1]
 
     def get_dataframe(self, color_rows_in_dataframe_func = None):
-        texts, emotions, confidences = zip(*st.session_state.buffer)
+        texts, emotions, confidences = list(), list(), list()
+        if st.session_state.buffer:
+            texts, emotions, confidences = zip(*st.session_state.buffer)
         
         df = pd.DataFrame({
             "Message" : texts,
