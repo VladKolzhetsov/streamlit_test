@@ -159,11 +159,11 @@ def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
         fmt="d",
         cmap="Blues",
         xticklabels=labels,
-        yticklabels=labels,
+        yticklabels=emotion2color.keys(),
     )
 
-    ax.set_xlabel("Predicted emotions", fontsize=12, labelpad=10)
-    ax.set_ylabel("Guided emotions", fontsize=12, labelpad=10)
+    ax.set_xlabel("Guided emotions", fontsize=12, labelpad=10)
+    ax.set_ylabel("Predicted emotions", fontsize=12, labelpad=10)
     plt.tight_layout()
     st.pyplot(fig)
 
