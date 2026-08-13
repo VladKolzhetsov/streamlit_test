@@ -123,9 +123,8 @@ df_cnt_emotions = df_cnt_emotions.rename(columns = {'index' : 'emotions'})
 
 
 st.title("Seaborn Pairplot")
-predicted, advised = df_messages.data["Emotion"], df_messages.data["Your advice"]
-
 df_messages.data.loc[df_messages.data["Your advice"] == '', 'Your advice'] = df_messages.data["Emotion"]
+st.write(df_messages)
 cnt_emotions = Counter(df_messages.data["Emotion"].tolist())
 cnt_emotions = data_for_histogram_counter(cnt_emotions)
 cnt_adv_emotions = Counter(df_messages.data["Your advice"].tolist())
@@ -138,10 +137,10 @@ df = pd.DataFrame({
 })
 
 fig, ax = plt.subplots(figsize=(10, 6))
-sns.barplot(x='Word', y='Doc1', data=df, ax=ax, label='Document 1', color='blue', alpha=0.5)
-sns.barplot(x='Word', y='Doc2', data=df, ax=ax, label='Document 2', color='red', dodge=True, alpha=0.5)
+sns.barplot(x='Word', y='Doc1', data=df, ax=ax, label='Predicted', color='blue', alpha=0.5)
+sns.barplot(x='Word', y='Doc2', data=df, ax=ax, label='Guided', color='red', dodge=True, alpha=0.5)
 
-ax.set_xlabel('Word')
+ax.set_xlabel('Emotions')
 ax.set_ylabel('Count')
 ax.set_title('Word Frequencies in Two Documents (Side by Side)')
 ax.legend()
