@@ -16,7 +16,7 @@ emotion2color = {
 
 column_config={
         "Your advice": st.column_config.SelectboxColumn(
-            "Possible options",
+            "Your advice",
             options=emotion2color.keys(),
             required=True,
         )
@@ -63,7 +63,7 @@ class Memory_buffer:
     def update(self):
         st.write(st.session_state.user_advice)
         for row_index, col_advice in st.session_state.user_advice.items():
-            self.user_advices[row_index] = col_advice["Your_advice"]
+            self.user_advices[row_index] = col_advice["Your advice"]
     
 
 memory_buffer = Memory_buffer()
