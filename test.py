@@ -10,7 +10,7 @@ emotion2color = {
   "neutral": "gray",
   "anger": "red",
   "fear": "violet",
-  "surprise": "black",
+  "surprise": "cyan",
   "disgust": "green"
 }
 
@@ -50,20 +50,20 @@ class Memory_buffer:
         return df.style.apply(color_rows_in_dataframe_func, axis=1)
     
 
-if "my_text" not in st.session_state:
-    st.session_state.my_text = ""
+if "user_input" not in st.session_state:
+    st.session_state.user_input = ""
 
 def submit():
-    st.session_state.my_text = st.session_state.widget
-    st.session_state.widget = ""
+    st.session_state.user_input = st.session_state.message
+    st.session_state.message = ""
 
 memory_buffer = Memory_buffer()
 
 pipe = pipeline("text-classification", model="VK26/disilbert-finetuned-emotion2")
 
 st.header("Message")
-st.text_area("message goes here", "", max_chars=250, placeholder="Nothing", key="widget", on_change=submit)
-user_input = st.session_state.my_text
+st.text_area("message goes here", "", max_chars=250, placeholder="Nothing", key="message", on_change=submit)
+user_input = st.session_state.user_input
 
 if user_input:
     st.header("Responce")
