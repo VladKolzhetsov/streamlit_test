@@ -111,20 +111,11 @@ else:
                    num_rows="fixed" )
 
 
-
-
-cnt_emotions = Counter(df_messages.data["Emotion"].tolist())
-cnt_emotions = data_for_histogram_counter(cnt_emotions)
-df_cnt_emotions = pd.DataFrame.from_dict(cnt_emotions, orient='index')
-df_cnt_emotions = df_cnt_emotions.rename({0 : 'count'}, axis='columns')
-df_cnt_emotions.reset_index(inplace=True)
-df_cnt_emotions = df_cnt_emotions.rename(columns = {'index' : 'emotions'})
-
-
+if st.button("Commit changes"):
+    memory_buffer.update()
 
 st.title("Seaborn Pairplot")
 df_messages.data.loc[df_messages.data["Your advice"] == '', 'Your advice'] = df_messages.data["Emotion"]
-st.write(df_messages)
 cnt_emotions = Counter(df_messages.data["Emotion"].tolist())
 cnt_emotions = data_for_histogram_counter(cnt_emotions)
 cnt_adv_emotions = Counter(df_messages.data["Your advice"].tolist())
