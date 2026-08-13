@@ -3,6 +3,7 @@ from transformers import pipeline
 import pandas as pd
 from collections import Counter
 import altair as alt
+import seaborn as sns
 
 emotion2color = {
   "sadness" : "blue",
@@ -117,9 +118,32 @@ df_cnt_emotions = pd.DataFrame.from_dict(cnt_emotions, orient='index')
 df_cnt_emotions = df_cnt_emotions.rename({0 : 'count'}, axis='columns')
 df_cnt_emotions.reset_index(inplace=True)
 df_cnt_emotions = df_cnt_emotions.rename(columns = {'index' : 'emotions'})
-
-cnt_advices = Counter(df_messages.data.mask(df_messages.data['Your advice'] == "", df_messages.data["Emotion"]).tolist()) 
 st.write(cnt_advices)
+
+
+st.title("Seaborn Pairplot")
+
+words = ['the', 'and', 'cat', 'dog', 'in', 'a']
+doc1_counts = [20, 15, 7, 3, 5, 10]
+doc2_counts = [18, 12, 6, 8, 4, 14]
+
+df = pd.DataFrame({
+    'Word': words,
+    'Doc1': doc1_counts,
+    'Doc2': doc2_counts
+})
+
+fig, ax = plt.subplots(figsize=(10, 6))
+sns.barplot(x='Word', y='Doc1', data=df, ax=ax, label='Document 1', color='skyblue', alpha=0.5)
+sns.barplot(x='Word', y='Doc2', data=df, ax=ax, label='Document 2', color='salmon', dodge=True, alpha=0.5)
+
+ax.set_xlabel('Word')
+ax.set_ylabel('Count')
+ax.set_title('Word Frequencies in Two Documents (Side by Side)')
+ax.legend()
+plt.xticks(rotation=45)
+plt.tight_layout()
+st.pyplot(fig)
 
 histogram = alt.Chart(df_cnt_emotions).mark_bar().encode(x = 'emotions', y = 'count')
 st.write(histogram)
