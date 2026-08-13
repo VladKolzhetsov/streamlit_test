@@ -150,7 +150,7 @@ def seaborn_pairplot(cnt_emo, cnt_adv_emo):
 def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
     st.title("Confusion matrix")
     labels = list( emotion2color.keys() )
-    cm = confusion_matrix(cnt_emo, cnt_adv_emo,labels=labels )
+    cm = confusion_matrix(cnt_emo, cnt_adv_emo,labels=emotion2color.keys() )
     st.write(cm)
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.heatmap(
@@ -159,7 +159,7 @@ def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
         fmt="d",
         cmap="Blues",
         xticklabels=labels,
-        yticklabels=emotion2color.keys(),
+        yticklabels=lables,
     )
 
     ax.set_xlabel("Guided emotions", fontsize=12, labelpad=10)
