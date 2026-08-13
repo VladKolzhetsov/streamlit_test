@@ -16,8 +16,8 @@ emotion2color = {
 
 column_config={
         "Tags": st.column_config.MultiselectColumn(
-            "Select Tags",
-            options=["python", "ui", "backend", "database"],
+            "Your advice",
+            options=["python", "ui", "backend", "database", ""],
             help="Choose multiple tags",
         )
     }
