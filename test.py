@@ -151,14 +151,14 @@ def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
     st.title("Confusion matrix")
     cm = confusion_matrix(cnt_emo, cnt_adv_emo)
     fig, ax = plt.subplots(figsize=(10, 6))
-
+    lables = emotion2color.keys()
     sns.heatmap(
         cm,
         annot=True,
         fmt="d",
         cmap="Blues", 
-        xticklabels=emotion2color.keys(),
-        yticklabels=emotion2color.keys()[::-1],
+        xticklabels=lables,
+        yticklabels=reversed(lables),
     )
 
     plt.title("Confusion Matrix", fontsize=16, pad=20)
