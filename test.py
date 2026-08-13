@@ -17,8 +17,7 @@ emotion2color = {
 column_config={
         "Your advice": st.column_config.MultiselectColumn(
             "Possible options",
-            options=["python", "ui", "backend", "database", ""],
-            help="Choose multiple tags",
+            options=emotion2color.keys(),
         )
     }
 
@@ -52,7 +51,7 @@ class Memory_buffer:
             "Message" : texts,
             "Confidence" : confidences,
             "Emotion" : emotions,
-            "Your advice" : [""] * len(confidences)
+            "Your advice" : emotions
          })
       
         if color_rows_in_dataframe_func is None:
