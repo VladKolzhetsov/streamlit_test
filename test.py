@@ -168,6 +168,9 @@ def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
     plt.tight_layout()
     st.pyplot(fig)
 
-#if st.button("Commit changes", on_click=commit_changes):
+if st.button("Commit changes", on_click=commit_changes):
+    seaborn_pairplot(cnt_emo, cnt_adv_emo)
+    confusion_matrix_plot(cnt_emo, cnt_adv_emo)
+  
 seaborn_pairplot(cnt_emo, cnt_adv_emo)
 confusion_matrix_plot(cnt_emo, cnt_adv_emo)
