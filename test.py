@@ -85,7 +85,17 @@ st.session_state.user_input = ""
 df_messages = memory_buffer.get_dataframe(color_rows_in_dataframe_func = color_rows_in_dataframe)
 if "user_advice" not in st.session_state:
     st.session_state.user_advice = list()
-st.data_editor( df_messages, disabled=["Message", "Confidence", "Emotion"], key="user_responce", num_rows="fixed", column_config=column_config )
+if st.session_state.buffer:
+    st.data_editor( df_messages,
+                   disabled=["Message", "Confidence", "Emotion"],
+                   key="user_responce",
+                   num_rows="fixed",
+                   column_config=column_config )
+else:
+    st.data_editor( df_messages,
+                   disabled=["Message", "Confidence", "Emotion"],
+                   key="user_responce",
+                   num_rows="fixed" )
 st.session_state.user_advice = st.session_state["user_responce"]["edited_rows"]
 st.write(st.session_state.user_advice)
 
