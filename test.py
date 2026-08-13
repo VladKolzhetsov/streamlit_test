@@ -17,7 +17,7 @@ emotion2color = {
 column_config={
         "Your advice": st.column_config.SelectboxColumn(
             "Possible options",
-            options=emotion2color.keys(),
+            options=map(lambda emo : emo + " ✅", emotion2color.keys() ),
             required=True,
         )
     }
