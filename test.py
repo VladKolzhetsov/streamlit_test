@@ -67,9 +67,7 @@ class Memory_buffer:
         return df.style.apply(color_rows_in_dataframe_func, axis=1)
 
     def update(self):
-        st.write(st.session_state.user_advices)
-        st.write(st.session_state.user_advice)
-        for row_index, col_advice in st.session_state.user_advice.items():
+        for row_index, col_advice in st.session_state["user_responce"]["edited_rows"].items():
             st.session_state.user_advices[row_index] = col_advice["Your advice"]
     
 
@@ -92,15 +90,12 @@ responce = pipe(st.session_state.user_input)[0]
 emotion, prob = responce.values()
 st.markdown( f":{emotion2color[emotion]}-badge[ {emotion} ] with :{emotion2color[emotion]}-badge[ {round(prob * 100, 3)}% ] confidence." )
 if st.session_state.user_input:
-    st.write(st.session_state.user_advice)
     memory_buffer.update()
     memory_buffer.push( st.session_state.user_input, emotion, prob )
 st.session_state.user_input = ""
 
 df_messages = memory_buffer.get_dataframe(color_rows_in_dataframe_func = color_rows_in_dataframe)
 
-if "user_advice" not in st.session_state:
-    st.session_state.user_advice = list()
 
 if st.session_state.buffer:
     st.data_editor( df_messages,
@@ -114,8 +109,6 @@ else:
                    key="user_responce",
                    num_rows="fixed" )
 
-st.session_state.user_advice = st.session_state["user_responce"]["edited_rows"]
-st.write(st.session_state.user_advice)
 
 
 
