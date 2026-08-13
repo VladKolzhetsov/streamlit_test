@@ -61,6 +61,7 @@ class Memory_buffer:
         return df.style.apply(color_rows_in_dataframe_func, axis=1)
 
     def update(self):
+        st.write(st.session_state.user_advice)
         for row_index, col_advice in st.session_state.user_advice.items():
             self.user_advices[row_index] = col_advice["Your_advice"]
     
