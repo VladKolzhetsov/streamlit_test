@@ -158,7 +158,7 @@ def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
         fmt="d",
         cmap="Blues", 
         xticklabels=lables,
-        yticklabels=reversed(lables),
+        yticklabels=list(reversed(lables)),
     )
 
     plt.title("Confusion Matrix", fontsize=16, pad=20)
