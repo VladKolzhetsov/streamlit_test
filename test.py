@@ -118,7 +118,7 @@ df_cnt_emotions = pd.DataFrame.from_dict(cnt_emotions, orient='index')
 df_cnt_emotions = df_cnt_emotions.rename({0 : 'count'}, axis='columns')
 df_cnt_emotions.reset_index(inplace=True)
 df_cnt_emotions = df_cnt_emotions.rename(columns = {'index' : 'emotions'})
-st.write(cnt_advices)
+
 
 
 st.title("Seaborn Pairplot")
