@@ -154,8 +154,7 @@ def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
 
     fig, ax = plt.subplots()
     dis = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=lables)
-    dis.plot()
-    plt.show()
+    st.write(dis)
 
 if st.button("Commit changes", on_click=commit_changes):
     seaborn_pairplot(cnt_emo, cnt_adv_emo)
