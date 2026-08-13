@@ -56,33 +56,35 @@ memory_buffer = Memory_buffer()
 pipe = pipeline("text-classification", model="VK26/disilbert-finetuned-emotion2")
 
 st.header("Message")
-user_input = st.text_area("message goes here", "Nothing", max_chars=250)
+user_input = st.text_area("message goes here", "", max_chars=250, placeholder="Nothing")
 
-st.header("Responce")
-responce = pipe(user_input)[0]
-emotion, prob = responce.values()
-#st.badge(f"{emotion} with {round(prob, 3) * 100} % confidence", color = emotion2color[emotion])
-st.markdown( f":{emotion2color[emotion]}-badge[ {emotion} ] with :{emotion2color[emotion]}-badge[ {round(prob * 100, 3)}% ] confidence." )
-memory_buffer.push( user_input, emotion, prob )
+if user_input:
+    st.header("Responce")
+    responce = pipe(user_input)[0]
+    emotion, prob = responce.values()
+    st.markdown( f":{emotion2color[emotion]}-badge[ {emotion} ] with :{emotion2color[emotion]}-badge[ {round(prob * 100, 3)}% ] confidence." )
+    memory_buffer.push( user_input, emotion, prob )
 
-df_messages = memory_buffer.get_dataframe(color_rows_in_dataframe_func = color_rows_in_dataframe)
-st.data_editor( df_messages, disabled=["Message", "Confidence", "Emotion"], key="user_responce", num_rows="fixed" )
+    df_messages = memory_buffer.get_dataframe(color_rows_in_dataframe_func = color_rows_in_dataframe)
+    st.data_editor( df_messages, disabled=["Message", "Confidence", "Emotion"], key="user_responce", num_rows="fixed" )
 
 
-if st.button("Save All Changes"):
-    changes = st.session_state["user_responce"]
+    if st.button("Save All Changes"):
+        changes = st.session_state["user_responce"]
   
-    for row_index, updates in changes.get("edited_rows", {}).items():
-        row_idx = int(row_index)
-        for col_name, new_value in updates.items():
-            st.session_state.buffer[row_idx].append(new_value)
+        for row_index, updates in changes.get("edited_rows", {}).items():
+            row_idx = int(row_index)
+            for col_name, new_value in updates.items():
+                st.session_state.buffer[row_idx].append(new_value)
 
 
-cnt_emotions = Counter(df_messages.data["Emotion"].tolist())
-cnt_emotions = data_for_histogram_counter(cnt_emotions)
-df_cnt_emotions = pd.DataFrame.from_dict(cnt_emotions, orient='index')
-df_cnt_emotions = df_cnt_emotions.rename({0 : 'count'}, axis='columns')
-df_cnt_emotions.reset_index(inplace=True)
-df_cnt_emotions = df_cnt_emotions.rename(columns = {'index' : 'emotions'})
-histogram = alt.Chart(df_cnt_emotions).mark_bar().encode(x = 'emotions', y = 'count')
-st.write(histogram)
+    cnt_emotions = Counter(df_messages.data["Emotion"].tolist())
+    cnt_emotions = data_for_histogram_counter(cnt_emotions)
+    df_cnt_emotions = pd.DataFrame.from_dict(cnt_emotions, orient='index')
+    df_cnt_emotions = df_cnt_emotions.rename({0 : 'count'}, axis='columns')
+    df_cnt_emotions.reset_index(inplace=True)
+    df_cnt_emotions = df_cnt_emotions.rename(columns = {'index' : 'emotions'})
+    histogram = alt.Chart(df_cnt_emotions).mark_bar().encode(x = 'emotions', y = 'count')
+    st.write(histogram)
+
+    st.write(st.session_state["user_responce"])
