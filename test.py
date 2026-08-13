@@ -154,6 +154,7 @@ def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
 
     fig, ax = plt.subplots()
     dis = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=lables)
+    st.write(cm)
     dis.plot()
     st.pyplot(fig)
 
