@@ -62,7 +62,7 @@ memory_buffer = Memory_buffer()
 pipe = pipeline("text-classification", model="VK26/disilbert-finetuned-emotion2")
 
 st.header("Message")
-user_input = st.text_area("message goes here", "", max_chars=250, placeholder="Nothing", on_change=submit)
+user_input = st.text_area("message goes here", "", max_chars=250, placeholder="Nothing", key="widget", on_change=submit)
 
 if user_input:
     st.header("Responce")
