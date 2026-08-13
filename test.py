@@ -139,7 +139,4 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 st.pyplot(fig)
 
-histogram = alt.Chart(df_cnt_emotions).mark_bar().encode(x = 'emotions', y = 'count')
-st.write(histogram)
-
 st.write(st.session_state["user_responce"])
