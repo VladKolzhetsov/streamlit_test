@@ -57,7 +57,8 @@ class Memory_buffer:
             "Emotion" : emotions,
             "Your advice" : self.user_advices
          })
-      
+
+        st.write(self.user_advices)
         if color_rows_in_dataframe_func is None:
             return df
         return df.style.apply(color_rows_in_dataframe_func, axis=1)
