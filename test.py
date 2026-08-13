@@ -72,6 +72,12 @@ class Memory_buffer:
             st.session_state.user_advices[row_index] = col_advice["Your advice"]
     
 
+def start_new_session():
+    st.session_state.clear()
+    st.rerun()
+
+st.button("Start New Session", type="primary", on_click=start_new_session)
+
 memory_buffer = Memory_buffer()
 
 pipe = pipeline("text-classification", model="VK26/disilbert-finetuned-emotion2")
@@ -111,8 +117,11 @@ else:
                    num_rows="fixed" )
 
 
-if st.button("Commit changes"):
+def commit_changes():
     memory_buffer.update()
+
+st.button("Commit changes", on_click=commit_changes):
+    
 
 st.title("Seaborn Pairplot")
 df_messages.data.loc[df_messages.data["Your advice"] == '', 'Your advice'] = df_messages.data["Emotion"]
