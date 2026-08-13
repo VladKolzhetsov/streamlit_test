@@ -5,7 +5,7 @@ from collections import Counter
 import altair as alt
 import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
 emotion2color = {
   "sadness" : "blue",
@@ -149,24 +149,10 @@ def seaborn_pairplot(cnt_emo, cnt_adv_emo):
 
 def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
     st.title("Confusion matrix")
-    cm = confusion_matrix(cnt_emo, cnt_adv_emo)
-    fig, ax = plt.subplots(figsize=(10, 6))
     lables = emotion2color.keys()
-    sns.heatmap(
-        cm,
-        annot=True,
-        fmt="d",
-        cmap="Blues", 
-        xticklabels=lables,
-        yticklabels=list(reversed(lables)),
-    )
-
-    plt.title("Confusion Matrix", fontsize=16, pad=20)
-    ax.set_xlabel("Guided emotion", fontsize=12)
-    ax.set_ylabel("Predicted emotion", fontsize=12)
-
-    plt.tight_layout()
-    st.pyplot(fig)
+    cm = confusion_matrix(cnt_emo, cnt_adv_emo,labels=lables )
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=lables)
+    st.pyplot(disp)
 
 if st.button("Commit changes", on_click=commit_changes):
     seaborn_pairplot(cnt_emo, cnt_adv_emo)
