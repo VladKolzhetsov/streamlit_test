@@ -153,7 +153,6 @@ def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
     cm = confusion_matrix(cnt_emo, cnt_adv_emo,labels=labels )
     st.write(cm)
     fig, ax = plt.subplots(figsize=(10, 6))
-    plt.figure(figsize=(6, 5))
     sns.heatmap(
         cm,
         annot=True,
