@@ -125,14 +125,16 @@ df_cnt_emotions = df_cnt_emotions.rename(columns = {'index' : 'emotions'})
 st.title("Seaborn Pairplot")
 predicted, advised = df_messages.data["Emotion"], df_messages.data["Your advice"]
 
-st.write(df_messages)
 df_messages.data.loc[df_messages.data["Your advice"] == '', 'Your advice'] = df_messages.data["Emotion"]
-st.write(df_messages)
-'''
+cnt_emotions = Counter(df_messages.data["Emotion"].tolist())
+cnt_emotions = data_for_histogram_counter(cnt_emotions)
+cnt_adv_emotions = Counter(df_messages.data["Your advice"].tolist())
+cnt_adv_emotions = data_for_histogram_counter(cnt_adv_emotions)
+
 df = pd.DataFrame({
-    'Word': words,
-    'Doc1': doc1_counts,
-    'Doc2': doc2_counts
+    'Word': cnt_emotions.keys(),
+    'Doc1': cnt_emotions.values(),
+    'Doc2': cnt_adv_emotions.values()
 })
 
 fig, ax = plt.subplots(figsize=(10, 6))
@@ -146,7 +148,7 @@ ax.legend()
 plt.xticks(rotation=45)
 plt.tight_layout()
 st.pyplot(fig)
-'''
+
 histogram = alt.Chart(df_cnt_emotions).mark_bar().encode(x = 'emotions', y = 'count')
 st.write(histogram)
 
