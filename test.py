@@ -10,7 +10,7 @@ emotion2color = {
   "neutral": "gray",
   "anger": "red",
   "fear": "violet",
-  "surprise": "cyan",
+  "surprise": "darkslategray",
   "disgust": "green"
 }
 
@@ -50,18 +50,17 @@ class Memory_buffer:
         return df.style.apply(color_rows_in_dataframe_func, axis=1)
     
 
+memory_buffer = Memory_buffer()
+
+pipe = pipeline("text-classification", model="VK26/disilbert-finetuned-emotion2")
+
+st.header("Message")
 if "user_input" not in st.session_state:
     st.session_state.user_input = ""
 
 def submit():
     st.session_state.user_input = st.session_state.message
     st.session_state.message = ""
-
-memory_buffer = Memory_buffer()
-
-pipe = pipeline("text-classification", model="VK26/disilbert-finetuned-emotion2")
-
-st.header("Message")
 st.text_area("message goes here", "", max_chars=250, placeholder="Nothing", key="message", on_change=submit)
 user_input = st.session_state.user_input
 
@@ -73,16 +72,12 @@ if user_input:
     memory_buffer.push( user_input, emotion, prob )
 
     df_messages = memory_buffer.get_dataframe(color_rows_in_dataframe_func = color_rows_in_dataframe)
+    if "user_advice" not in st.session_state:
+        st.session_state.user_advice = list()
     st.data_editor( df_messages, disabled=["Message", "Confidence", "Emotion"], key="user_responce", num_rows="fixed" )
+    st.session_state.user_advice = st.data_editor["user_responce"]["edited_rows"]
+    st.write(st.session_state.user_advice)
 
-
-    if st.button("Save All Changes"):
-        changes = st.session_state["user_responce"]
-  
-        for row_index, updates in changes.get("edited_rows", {}).items():
-            row_idx = int(row_index)
-            for col_name, new_value in updates.items():
-                st.session_state.buffer[row_idx].append(new_value)
 
 
     cnt_emotions = Counter(df_messages.data["Emotion"].tolist())
