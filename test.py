@@ -117,11 +117,11 @@ else:
                    num_rows="fixed" )
 
 
-def commit_changes(df_messages):
+def commit_changes():
     memory_buffer.update()
-    seaborn_pairplot(df_messages)
+    seaborn_pairplot()
 
-def seaborn_pairplot(df_messages):
+def seaborn_pairplot():
     st.title("Seaborn Pairplot")
     df_messages.data.loc[df_messages.data["Your advice"] == '', 'Your advice'] = df_messages.data["Emotion"]
     cnt_emotions = Counter(df_messages.data["Emotion"].tolist())
@@ -147,7 +147,7 @@ def seaborn_pairplot(df_messages):
     plt.tight_layout()
     st.pyplot(fig)
 
-st.button("Commit changes", on_click=commit_changes, args=(df_messages))
+st.button("Commit changes", on_click=commit_changes)
     
 
 
