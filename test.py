@@ -62,14 +62,15 @@ def submit():
     st.session_state.user_input = st.session_state.message
     st.session_state.message = ""
 st.text_area("message goes here", "", max_chars=250, placeholder="Nothing", key="message", on_change=submit)
-user_input = st.session_state.user_input
+#user_input = st.session_state.user_input
 
 if user_input:
     st.header("Responce")
-    responce = pipe(user_input)[0]
+    responce = pipe(st.session_state.user_input)[0]
     emotion, prob = responce.values()
     st.markdown( f":{emotion2color[emotion]}-badge[ {emotion} ] with :{emotion2color[emotion]}-badge[ {round(prob * 100, 3)}% ] confidence." )
-    memory_buffer.push( user_input, emotion, prob )
+    memory_buffer.push( st.session_state.user_input, emotion, prob )
+    st.session_state.user_input = ""
 
     df_messages = memory_buffer.get_dataframe(color_rows_in_dataframe_func = color_rows_in_dataframe)
     if "user_advice" not in st.session_state:
