@@ -148,7 +148,7 @@ def seaborn_pairplot(cnt_emo, cnt_adv_emo):
     st.pyplot(fig)
 
 def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
-    cm = confusion_matrix(cnt_adv_emo, cnt_emo)
+    cm = confusion_matrix(cnt_emo, cnt_adv_emo)
     fig, ax = plt.subplots(figsize=(10, 6))
 
     sns.heatmap(
