@@ -3,6 +3,7 @@ pandas
 numpy
 altair
 seaborn
+matplotlib
 transformers
 torch
 torchvision
