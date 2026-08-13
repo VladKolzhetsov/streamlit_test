@@ -119,7 +119,7 @@ else:
 
 def commit_changes():
     memory_buffer.update()
-    seaborn_pairplot()
+    
 
 def seaborn_pairplot():
     st.title("Seaborn Pairplot")
@@ -147,9 +147,8 @@ def seaborn_pairplot():
     plt.tight_layout()
     st.pyplot(fig)
 
-st.button("Commit changes", on_click=commit_changes)
-    
-
+if st.button("Commit changes", on_click=commit_changes):
+    seaborn_pairplot()
 
 
 st.write(st.session_state["user_responce"])
