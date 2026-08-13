@@ -153,7 +153,6 @@ def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
     st.title("Confusion matrix")
     labels = list( emotion2color.keys() )
     cm = confusion_matrix(cnt_emo, cnt_adv_emo,labels=labels )
-    st.write(cm)
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.heatmap(
         cm,
@@ -169,6 +168,6 @@ def confusion_matrix_plot(cnt_emo, cnt_adv_emo):
     plt.tight_layout()
     st.pyplot(fig)
 
-if st.button("Commit changes", on_click=commit_changes):
-    seaborn_pairplot(cnt_emo, cnt_adv_emo)
-    confusion_matrix_plot(cnt_emo, cnt_adv_emo)
+#if st.button("Commit changes", on_click=commit_changes):
+seaborn_pairplot(cnt_emo, cnt_adv_emo)
+confusion_matrix_plot(cnt_emo, cnt_adv_emo)
