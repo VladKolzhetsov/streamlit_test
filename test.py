@@ -37,7 +37,7 @@ class Memory_buffer:
         if "buffer" not in st.session_state:
             st.session_state.buffer = list()
         self.default_size = default_size
-        self.user_advices = list()
+        self.session_state.user_advices = list()
       
     def push(self, data, emotion, confidence):
         st.session_state.buffer.append( (data, emotion, confidence) )
@@ -49,25 +49,25 @@ class Memory_buffer:
         if st.session_state.buffer:
             texts, emotions, confidences = zip(*st.session_state.buffer)
           
-        self.user_advices += [""] * (len(confidences) - len(self.user_advices)) 
+        self.session_state.user_advices += [""] * (len(confidences) - len(self.session_state.user_advices)) 
       
         df = pd.DataFrame({
             "Message" : texts,
             "Confidence" : confidences,
             "Emotion" : emotions,
-            "Your advice" : self.user_advices
+            "Your advice" : self.session_state.user_advices
          })
 
-        st.write(self.user_advices)
+        st.write(self.session_state.user_advices)
         if color_rows_in_dataframe_func is None:
             return df
         return df.style.apply(color_rows_in_dataframe_func, axis=1)
 
     def update(self):
-        st.write(self.user_advices)
+        st.write(self.session_state.user_advices)
         st.write(st.session_state.user_advice)
         for row_index, col_advice in st.session_state.user_advice.items():
-            self.user_advices[row_index] = col_advice["Your advice"]
+            self.session_state.user_advices[row_index] = col_advice["Your advice"]
     
 
 memory_buffer = Memory_buffer()
