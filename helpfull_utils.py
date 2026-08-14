@@ -30,6 +30,10 @@ def data_for_histogram_counter(counter):
         _dict[key] += value
     return _dict
 
+def read_readme():
+    with open("README.md", "r", encoding="utf-8") as _file:
+        return _file.read()
+
 class Memory_buffer:
     def __init__(self, *, default_size = 50):
         if "buffer" not in st.session_state:
