@@ -2,10 +2,7 @@ import streamlit as st
 from transformers import pipeline
 import pandas as pd
 import numpy as np
-from collections import Counter
-import seaborn as sns
-import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix
+
 from plot_func import seaborn_pairplot, confusion_matrix_plot
 
 
