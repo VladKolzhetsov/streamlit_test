@@ -12,7 +12,7 @@ if "__main__" == __name__:
     st.button("Start New Session", type="primary", on_click=start_new_session)
 
     with st.expander("Click here to show/hide text"):
-        st.write( read_readme )
+        st.write( read_readme() )
 
     memory_buffer = Memory_buffer()
 
