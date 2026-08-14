@@ -1,3 +1,9 @@
+from collections import Counter
+import streamlit as st
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix
+
 @st.cache_data
 def seaborn_pairplot(cnt_emo, cnt_adv_emo):
     st.title("Seaborn Pairplot")
