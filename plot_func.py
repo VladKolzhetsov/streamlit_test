@@ -4,6 +4,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
 
+from helpfull_utils import *
+
 @st.cache_data
 def seaborn_pairplot(cnt_emo, cnt_adv_emo):
     st.title("Seaborn Pairplot")
